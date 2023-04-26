@@ -1,0 +1,15 @@
+# Limpiar el entorno de trabajo de Docker
+function cleardocker(){
+  echo -e "\n[!] Eliminando contenedores..."
+  docker rm $(docker ps -a -q) --force &>/dev/null
+  sleep 1
+  echo -e "\n[!] Elminando imágenes..."
+  docker rmi $(docker images -q) &>/dev/null
+  sleep 1
+  echo -e "\n[!] Eliminando volúmenes..."
+  docker volume rm $(docker volume ls -q) &>/dev/null
+  sleep 1
+  echo -e "\n[!] Eliminando redes..."
+  docker network prune --force &>/dev/null
+  sleep 1
+}
