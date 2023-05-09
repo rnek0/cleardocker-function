@@ -1,4 +1,5 @@
 # cleardocker-function
-Función para limpiar el entorno de trabajo de Docker
+Función para limpiar el entorno de trabajo de Docker.
 
-Para hacer uso de esta función se requiere su introducción en el archivo ~/.zshrc de tu usuario.
+Para instalar esta función tan solo es necesario descargar y ejecutar el archivo 'install.sh' como root.
+La ejecución de la función es con cleardocker desde la ZSH, te pedirá confirmación para evitar ejecuciones fortuitas, además si no lo ejecutas como root no te permitirá lanzarla.
