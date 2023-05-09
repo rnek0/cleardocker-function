@@ -1,18 +1,26 @@
-# Limpiar el entorno de trabajo de Docker
-function cleardocker(){
-  echo -e "\n\e[0:94m[*] Ejecutando limpieza de entorno Docker\e[0m"
-  sleep 1
-  echo -e "\n\e[0;31m[!] Eliminando contenedores...\e[0m"
-  docker rm $(docker ps -a -q) --force &>/dev/null
-  sleep 0.75
-  echo -e "\e[0;31m[!] Elminando imágenes...\e[0m"
-  docker rmi $(docker images -q) &>/dev/null
-  sleep 0.75
-  echo -e "\e[0;31m[!] Eliminando volúmenes...\e[0m"
-  docker volume rm $(docker volume ls -q) &>/dev/null
-  sleep 0.75
-  echo -e "\e[0;31m[!] Eliminando redes...\e[0m"
-  docker network prune --force &>/dev/null
-  sleep 0.75
-  echo -e "\n\e[0;92m[+] ¡Entorno de trabajo de Docker limpiado!\e[0m\n"
-}
+if [[ $UID == 0 ]]; then
+  read "input?Se borrará todo el entorno, ¿estás seguro? [y,n] "
+    if [[ "$input" == "y" || "$input" == "Y" ]]; then
+      echo -e "\n\e[0:94m[*] Ejecutando limpieza de entorno Docker\e[0m"
+      sleep 1
+      echo -e "\n\e[0;31m[!] Eliminando contenedores...\e[0m"
+      docker rm $(docker ps -a -q) --force &>/dev/null
+      sleep 0.75
+      echo -e "\e[0;31m[!] Elminando imágenes...\e[0m"
+      docker rmi $(docker images -q) &>/dev/null
+      sleep 0.75
+      echo -e "\e[0;31m[!] Eliminando volúmenes...\e[0m"
+      docker volume rm $(docker volume ls -q) &>/dev/null
+      sleep 0.75
+      echo -e "\e[0;31m[!] Eliminando redes...\e[0m"
+      docker network prune --force &>/dev/null
+      sleep 0.75
+      echo -e "\n\e[0;92m[+] ¡Entorno de trabajo de Docker limpiado!\e[0m\n"
+    elif [[ "$input" == "n" || "$input" == "N" ]]; then
+      echo -e "\nNo se borrará nada, saliendo...\n"
+    else
+      echo -e "\nPor favor introduce un carácter válido: [y/n]"
+    fi
+else 
+  echo "\nEs necesario ejecutar la función como root"
+fi
